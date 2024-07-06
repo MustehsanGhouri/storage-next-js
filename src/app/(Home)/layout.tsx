@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import AppNavbar from "../_components/ClientComponents/Navbar/AppNavbar";
-import { Providers } from "../_components/ClientComponents/NextUI/providers";
-import AuthProvider from "../_components/ClientComponents/AuthComponents/authProvider";
+
+import NavBarClient from "../_components/Navbar/NavBarClient";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider>
-          <Providers>
-            <AppNavbar></AppNavbar>
-            {children}
-          </Providers>
-        </AuthProvider>
+        <NavBarClient />
+        {children}
       </body>
     </html>
   );

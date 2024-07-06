@@ -1,12 +1,15 @@
-import { auth } from "@/auth";
+import { NextRequest, NextResponse } from 'next/server';
 
-export default auth((req) => {
-  if (!req.auth && req.nextUrl.pathname !== "/") {
-    const newUrl = new URL("/", req.nextUrl.origin);
-    return Response.redirect(newUrl);
+export function middleware(req: NextRequest) {
+  const token = req.cookies.get('accessToken');
+
+  if (!token && req.nextUrl.pathname !== '/signin') {
+    return NextResponse.redirect(new URL('/signin', req.nextUrl.origin));
   }
-});
+
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ['/dashboard/:path*', '/another-protected-route/:path*'], // Adjust these paths as necessary
 };
