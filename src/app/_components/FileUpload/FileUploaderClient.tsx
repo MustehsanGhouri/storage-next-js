@@ -1,24 +1,21 @@
 "use client";
-import { Card, Button, Label } from "flowbite-react";
+import { Button, Label } from "flowbite-react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import useToast from "@/utils/hooks/useToast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
+import useToast from "@/utils/hooks/useToast";
+import { useImages } from "@/utils/hooks/useImages";
+import { getCookie } from "@/utils/helper";
+
 type FormData = {
   mobile: string;
 };
 
-// Helper function to get a cookie
-const getCookie = (name: string): string | undefined => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(";").shift();
-};
-
 const FileUploadClient: React.FC = () => {
+  const { fetchImages } = useImages();
   const {
     register,
     handleSubmit,
@@ -81,6 +78,7 @@ const FileUploadClient: React.FC = () => {
       reset(); // Reset the form
       setFile(null); // Reset the file input
       setMobile(""); // Reset mobile input
+      fetchImages(); // Fetch the latest images
       router.push("/dashboard"); // Redirect to the dashboard or any other page
     } catch (error) {
       console.error("Error during file upload:", error);
