@@ -24,7 +24,7 @@ const FileUploadClient: React.FC = () => {
   } = useForm<FormData>();
   const { showSuccessMessage, showErrorMessage, ToastContainer } = useToast();
   const [file, setFile] = useState<File | null>(null);
-  const [mobile, setMobile] = useState<string>("");
+  const [mobile, setMobile] = useState<string>("+1234567890");
   const router = useRouter();
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +77,6 @@ const FileUploadClient: React.FC = () => {
       showSuccessMessage("File uploaded successfully");
       reset(); // Reset the form
       setFile(null); // Reset the file input
-      setMobile(""); // Reset mobile input
       fetchImages(); // Fetch the latest images
       router.push("/dashboard"); // Redirect to the dashboard or any other page
     } catch (error) {
@@ -104,13 +103,11 @@ const FileUploadClient: React.FC = () => {
               name: "mobile",
               required: true,
               autoFocus: true,
+              disabled: true,
             }}
             containerClass="w-full"
             inputClass="w-full"
           />
-          {errors.mobile && (
-            <span className="text-red-500">{errors.mobile.message}</span>
-          )}
         </div>
         <div>
           <Label
