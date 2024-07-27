@@ -62,7 +62,7 @@ export default function SignIn() {
       setCookie("accessToken", responseData.access_token, 1);
 
       showSuccessMessage("Logged in successfully");
-      router.push("/dashboard"); // Redirect to the dashboard or any other page
+      router.push("/packages"); // Redirect to the dashboard or any other page
     } catch (error) {
       console.error("Error during authentication:", error);
       showErrorMessage("Failed to authenticate");
